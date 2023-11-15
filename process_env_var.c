@@ -1,5 +1,12 @@
 #include "main.h"
-
+/*
+ * process_env_var - process the environment variable array.
+ *
+ * @arr: Pointer to the environment variable array
+ * @status: The status code indicating whether to remove the
+ * environment variable from the array
+ * @Return: Pointer to the modified environment variable array
+ */
 char **process_env_var(char **arr, int status)
 {
 	int i = 0;

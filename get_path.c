@@ -1,31 +1,48 @@
 #include"main.h"
-
-char *get_location(char *command)
+/*
+*    Determines if the given path is an absolute path.
+*    Input:
+*        - path: A null-terminated string representing the file path
+*    Output:
+*        - Returns 1 if the path is absolute, otherwise 0
+*/
+int is_absolute_path(const char *path)
 {
-	char *path, *path_copy, *path_token, *file_path, *command_copy,
-	*command_token;
-	int command_len, directory_len;
-	struct stat buffer;
+	return (path[0] == '/');
+}
 
-	path = _get_env("PATH");
-	path_copy = _strdup(path);
-	path_token = _strtok(path_copy, ":");
-	
-	command_copy = _strdup(command);
-	command_token = _strtok(command_copy, " \n");
+/*
+*  *get_path - takes a command string and returns the path to the exe file.
+*  The path is extracted from the environment variable PATH.
+*   Input:
+*       - command: A null-terminated string representing the command
+*   Output:
+*       - Returns a pointer to the path string if the command is found
+*/
+char *get_path(char *command)
+{
+	char *env_path, *dir, *path, *path, *dir, *env_path;
 
-	if ((access(command_token, F_OK | X_OK) == 0) &&
-	((line_copy[0] == '/') || (line_copy[1] == '/')))
+	if (is_absolute_path(command))
 	{
-		free(path_copy);
-		free(path_token);
-		return (command_copy);
+		return (command);
 	}
-	command_len = _strlen(command);
-	directory_len = _strlen(path_token);
-	
-	file_path = malloc(command_len + directory_len + 2);
-	strcpy(file_path, path_token);
-	strcat(file_path, "/");
-	strcat(file_path, command);
-	strcat(file_path, "\0");
+	env_path = _get_env("PATH");
+	dir = _strtok(env_path, ":");
+	while (dir != NULL)
+	{
+		path = malloc(sizeof(char) * (_strlen(dir) + _strlen(command) + 2));
+		_strcpy(path, dir);
+		_strcat(path, "/");
+		_strcat(path, command);
+		_strcat(path, "\0");
+	if (access(path, F_OK | X_OK) == 0)
+	{
+		return (path);
+	}
+	free(path);
+	dir = _strtok(NULL, ":");
+	}
+
+	return (NULL);
+}

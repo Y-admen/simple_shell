@@ -1,5 +1,10 @@
 #include"main.h"
-
+/*
+ * remove_comment -Function to remove comments from the string.
+ *
+ * @str : Pointer to the string from which comments are to be removed
+ * @Return : Point to the first character of string without comments
+ */
 char remove_comment(char *str)
 {
 	int i = 0;

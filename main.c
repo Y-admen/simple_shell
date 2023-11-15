@@ -1,6 +1,6 @@
 #include "main.h"
 
-int main(__atribute__((unused)) int argc, char **argv)
+int main(char **argv)
 {
 	if (isatty(STDIN_FILENO))
 		interactive(argv[0]);

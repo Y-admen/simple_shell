@@ -1,6 +1,13 @@
 #include"main.h"
-
-void exec_command(char *command, char **command_and_argu, int *status)
+/**
+ * _execve - Function to execute a command with a new process
+ * @command: Pointer to a string that contains the command to execute
+ * @command_and_argu: Point to arr of strings(the command and its arguments)
+ * @status: Pointer to an integer that will store the status of the command
+ *
+ * Return: None
+ */
+void _execve(char *command, char **command_and_argu, int *status)
 {
 	pid_t child_id = fork();
 

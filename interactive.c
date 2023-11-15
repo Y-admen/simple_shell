@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+ * interactiv - Interacts with the user through the command line
+ * @argv: Pointer to an array of strings
+ *
+ * Return: None
+ */
 void interactiv(char **argv)
 {
 	char prompt = "$ ", **arr = NULL, *buff = NULL, *str = NULL,
@@ -7,10 +13,10 @@ void interactiv(char **argv)
 	size_t buf_size = 0;
 	int  i = 1, status = 0;
 
-	while(1)
+	while (1)
 	{
 		_putchar(prompt);
-		if(_get_line(&buff, &buf_size, STDIN_FILENO) == -1)
+		if (_get_line(&buff, &buf_size, STDIN_FILENO) == -1)
 		{
 			free(buff);
 			exit(0);
@@ -27,14 +33,11 @@ void interactiv(char **argv)
 					status = 127;
 				}
 				else
-					exec_command(command_path, arr, &status);
-			
-
+					_execve(command_path, arr, &status);
 			}
 			free(command_path);
 	free(arr);
 	free(str);
-	
-	i++;	
+	i++;
 	}
 }

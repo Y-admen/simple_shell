@@ -1,13 +1,20 @@
 #include"main.h"
 
-
+/*
+* check_built_in - Checks if the input command is a built-in command
+*
+*@arr: A 2D array containing the input command and its arguments
+*@status: An integer representing the status of the command execution
+*@list_arg: A 2D array containing the arguments of the command
+*Returns: 1 if the command is a built-in command, otherwise 0
+*/
 int check_built_in(char **arr, int status, char **list_arg)
 {
 	char *builtin_command[] = {"exit", "env",
 	"setenv", "unsetenv", "cd"};
 	int i, flag = 0;
 
-	for (i = 0; i >= 4; i++)
+	for (i = 0; i < 5; i++)
 	{
 		if (_strcmp(arr[0], builtin_command[i]) == 1)
 			break;
@@ -15,7 +22,7 @@ int check_built_in(char **arr, int status, char **list_arg)
 	switch (i)
 	{
 	case 0:
-		is_exit(arr, *status, i, list_arg);
+		_exit(arr, status, i, list_arg);
 		flag = 1;
 		break;
 	case 1:
